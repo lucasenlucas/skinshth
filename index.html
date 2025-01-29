@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Faces</title>
+  <style>
+    body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: white;
+      overflow: hidden;
+    }
+    .person {
+      position: relative;
+      width: 120px;
+      height: 160px;
+      border-radius: 60px 60px 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s;
+    }
+    .hair {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      width: 60px;
+      height: 30px;
+      transform: translateX(-50%);
+    }
+    .eye {
+      width: 15px;
+      height: 3px;
+      background-color: black;
+      border-radius: 15px;
+      position: absolute;
+      top: 45px;
+      transition: height 0.3s;
+    }
+    .eye.left {
+      left: 30px;
+    }
+    .eye.right {
+      right: 30px;
+    }
+    .eye.open {
+      height: 15px;
+    }
+    .nose {
+      width: 12px;
+      height: 10px;
+      border-radius: 50%;
+      position: absolute;
+      top: 75px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .mouth {
+      width: 25px;
+      height: 3px;
+      background-color: red;
+      border-radius: 10px;
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: height 0.3s;
+    }
+    .mouth.open {
+      height: 12px;
+    }
+    .arm {
+      position: absolute;
+      width: 30px;
+      height: 50px;
+      background-color: inherit;
+      top: 110px;
+      border-radius: 15px;
+      transition: transform 0.5s;
+    }
+    .arm.right {
+      right: -25px;
+    }
+    .arm.left {
+      left: -25px;
+    }
+    .arm.raised {
+      transform: rotate(-30deg) translateY(-15px);
+    }
+    .checkmark {
+      position: absolute;
+      top: 50px;
+      right: -40px;
+      width: 20px;
+      height: 20px;
+      background-color: green;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 20px;
+      border-radius: 50%;
+      display: none;
+    }
+    .button {
+      width: 100%;
+      padding: 10px;
+      background-color: darkgoldenrod;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      position: absolute;
+      bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function createPerson(skinColor, hairColor, eyeSize, noseColor, mouthColor, hairShape) {
+      return `
+        <div class="person" style="background-color: ${skinColor};">
+          <div class="hair" style="background-color: ${hairColor}; border-radius: ${hairShape};"></div>
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="nose" style="background-color: ${noseColor};"></div>
+          <div class="mouth" style="background-color: ${mouthColor};"></div>
+          <div class="arm left"></div>
+          <div class="arm right"></div>
+          <div class="checkmark">✔</div>
+        </div>
+      `;
+    }
+    
+    for (let i = 0; i < 10; i++) {
+      document.body.innerHTML += createPerson(
+        ['burlywood', 'peachpuff', 'saddlebrown', 'tan', 'wheat', 'darkgoldenrod', 'rosybrown', 'navajowhite', 'peru', 'lightcoral'][i],
+        ['brown', 'black', 'gray', 'goldenrod', 'red', 'silver', 'darkred', 'blue', 'green', 'black'][i],
+        15,
+        ['pink', 'tan', 'darkbrown', 'brown', 'beige', 'white', 'tan', 'peachpuff', 'darkolivegreen', 'salmon'][i],
+        ['red', 'brown', 'darkred', 'orange', 'pink', 'purple', 'lightcoral', 'blue', 'goldenrod', 'crimson'][i],
+        ['50%', '20px', '40%', '0%', '60%', '10px', '70%', '30%', '20px', '15%'][i]
+      );
+    }
+
+    function toggleLesson() {
+      document.querySelectorAll('.eye').forEach(eye => eye.classList.toggle('open'));
+      document.querySelectorAll('.mouth').forEach(mouth => mouth.classList.toggle('open'));
+      document.querySelectorAll('.arm.right').forEach(arm => arm.classList.toggle('raised'));
+      document.querySelectorAll('.checkmark').forEach(mark => mark.style.display = 'block');
+    }
+  </script>
+  <button class="button" onclick="toggleLesson()">Check Answer</button>
+</body>
+</html>
